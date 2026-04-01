@@ -38,9 +38,7 @@ class DeleteTaskView(LoginRequiredMixin , DeleteView):
     '''
     model = Task
     success_url = reverse_lazy("task_list")
-
-    def get(self, request, *args, **kwargs):
-        return self.delete(request, *args, **kwargs)
+    template_name = "delete.html"
 
 
     def get_queryset(self):
@@ -71,5 +69,22 @@ class CompleteTaskView(LoginRequiredMixin,View):
 
         task = get_object_or_404(Task, id=pk, user=request.user)
         task.is_complete  =  True
+        task.save()
+        return redirect(self.success_url)
+
+
+
+class UndoneTaskView(LoginRequiredMixin,View):
+    '''
+    this is a class for undone task
+    '''
+
+    model = Task
+    success_url = reverse_lazy("task_list")
+
+    def get(self, request, pk , *args, **kwargs ):
+
+        task = get_object_or_404(Task, id=pk, user=request.user)
+        task.is_complete  =  False
         task.save()
         return redirect(self.success_url)

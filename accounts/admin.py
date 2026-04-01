@@ -6,7 +6,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 
-from accounts.models import MyUser 
+from accounts.models import MyUser  , Profile
 
 
 
@@ -23,7 +23,6 @@ class UserAdmin(BaseUserAdmin):
     list_filter = ["is_admin"]
     fieldsets = [
         (None, {"fields": ['username',"email", "password"]}),
-        ("Personal info", {"fields": ["date_of_birth" ]  }),
         ("Permissions", {"fields": ["is_admin", "is_staff", "is_superuser"]}),
     ]
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
@@ -33,7 +32,7 @@ class UserAdmin(BaseUserAdmin):
             None,
             {
                 "classes": ["wide"],
-                "fields": ['username',"email", "date_of_birth", "password1", "password2",],
+                "fields": ['username',"email", "password1", "password2"],
             },
         ),
     ]
@@ -47,3 +46,10 @@ admin.site.register(MyUser, UserAdmin)
 # ... and, since we're not using Django's built-in permissions,
 # unregister the Group model from admin.
 admin.site.unregister(Group)
+
+class ProfileAdmin(admin.ModelAdmin):
+    list_display =("first_name" , "last_name" , "date_of_birth")
+    search_fields = ("first_name" , "last_name")
+
+admin.site.register(Profile , ProfileAdmin)
+

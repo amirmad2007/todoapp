@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Edit Task{% endblock %}
+{% block title %}Delete Task{% endblock %}
 
 {% block content %}
 <div class="modal modal-signin position-static d-block py-5" tabindex="-1" role="dialog" id="modalSignin">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content rounded-5 shadow">
 			<div class="modal-header p-5 pb-4 border-bottom-0">
-				<h2 class="fw-bold mb-0">Edit Form</h2>
+				<h2 class="fw-bold mb-0">Are you sure that you want to delete this task? </h2>
 				<a type="button" class="btn-close" href="{% url 'task_list' %}"></a>
 			</div>
 
@@ -26,7 +26,8 @@
 						</div>
 					{% endif %}
 					
-					<button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Change</button>
+					<button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Delete</button>
+					
 				</form>
 			</div>
 		</div>‍‍‍‍

@@ -92,13 +92,6 @@ class SignupForm(forms.Form):
  
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}),
-        validators=[
-            MinLengthValidator(8),
-            RegexValidator(
-                regex=r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$',
-                message='Password must be at least 8 characters long and contain letters and numbers.'
-            )
-        ]
     )
     confirm_password = forms.CharField(
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirm Password'})

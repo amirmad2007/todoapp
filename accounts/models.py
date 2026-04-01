@@ -1,9 +1,12 @@
 from django.db import models
-
 from django.utils import timezone
 from datetime import timedelta
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.db.models.signals import post_save 
+from django.dispatch import receiver
+    
+
 # Create your models here.
 
 
@@ -49,7 +52,7 @@ class MyUser(AbstractBaseUser):
         max_length=255,
         blank= True,
         null= True,
-        unique=True,
+
     )
     username = models.CharField( max_length=50, unique= True)
 
@@ -89,3 +92,10 @@ class Profile(models.Model):
     created_date = models.DateTimeField( auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     profile_picture = models.ImageField( upload_to="profile_Pictures", blank=True , null=True)
+
+
+@receiver(post_save , sender= MyUser)
+def save_profile(sender, instance , created , **kwargs):
+        if created:
+            Profile.objects.create(user = instance)
+        
