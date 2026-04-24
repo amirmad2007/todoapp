@@ -1,5 +1,5 @@
 
-version: "3.9"
+
 services:
   backend:
     build: .
@@ -11,3 +11,22 @@ services:
       - .:/app
     ports:
       - "8000:8000"
+    depends_on:
+      - smtp4dev
+    environment:
+      - EMAIL_HOST=smtp4dev
+      - EMAIL_PORT=25
+      - EMAIL_USE_TLS=False
+
+  smtp4dev:
+    image: rnwood/smtp4dev:latest
+    container_name: smtp4dev
+    restart: unless-stopped
+    ports:
+      - "3000:80"      # Web UI
+      - "25:25"        # SMTP Server
+    volumes:
+      - smtp4dev-data:/app/data   # ذخیره ایمیل‌ها
+
+volumes:
+  smtp4dev-data:
