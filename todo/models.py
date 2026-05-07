@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 
-class   Task(models.Model):
+class Task(models.Model):
 
     user = models.ForeignKey("accounts.Profile", on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
