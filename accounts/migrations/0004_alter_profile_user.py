@@ -7,13 +7,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0003_remove_myuser_date_of_birth_and_more'),
+        ("accounts", "0003_remove_myuser_date_of_birth_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='profile',
-            name='user',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='accounts.myuser'),
+            model_name="profile",
+            name="user",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE, to="accounts.myuser"
+            ),
         ),
     ]

@@ -1,8 +1,8 @@
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-from django.core.exceptions import ValidationError
 from django import forms
 from .models import MyUser as User
-from django.core.validators import RegexValidator , MinLengthValidator , validate_email
+from django.core.validators import RegexValidator, MinLengthValidator
+
 
 class UserCreationForm(forms.ModelForm):
     """Form for creating regular users and superusers."""
@@ -43,7 +43,6 @@ class UserChangeForm(forms.ModelForm):
         fields = [
             "email",
             "username",
- 
             "password",
             "is_active",
             "is_admin",
@@ -52,49 +51,54 @@ class UserChangeForm(forms.ModelForm):
         ]
 
 
-
-
-
 class LoginForm(forms.Form):
     username = forms.CharField(
         max_length=50,
-        widget=forms.TextInput(attrs={
-            'placeholder': 'Username',
-            'class': 'form-control'
-        })
+        widget=forms.TextInput(
+            attrs={"placeholder": "Username", "class": "form-control"}
+        ),
     )
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={
-            'placeholder': 'Password',
-            'class': 'form-control',
-            'id': 'password-field'
-        })
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": "Password",
+                "class": "form-control",
+                "id": "password-field",
+            }
+        )
     )
-
 
 
 class SignupForm(forms.Form):
     username = forms.CharField(
         max_length=50,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}),
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Username"}
+        ),
         validators=[
             MinLengthValidator(3),
             RegexValidator(
-                regex=r'^[a-zA-Z0-9_]+$',
-                message='Username can only contain letters, numbers, and underscores.'
-            )
-        ]
+                regex=r"^[a-zA-Z0-9_]+$",
+                message="Username can only contain letters, numbers, and underscores.",
+            ),
+        ],
     )
     email = forms.EmailField(
         max_length=50,
-        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'})
+        widget=forms.EmailInput(
+            attrs={"class": "form-control", "placeholder": "Email"}
+        ),
     )
- 
+
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}),
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control", "placeholder": "Password"}
+        ),
     )
     confirm_password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirm Password'})
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control", "placeholder": "Confirm Password"}
+        )
     )
 
     def clean(self):
@@ -108,10 +112,10 @@ class SignupForm(forms.Form):
 
         username = cleaned_data.get("username")
         email = cleaned_data.get("email")
-    
+
         password = cleaned_data.get("password")
         confirm_password = cleaned_data.get("confirm_password")
-        
+
         # خطاهای clean اصلی
         if password and confirm_password and password != confirm_password:
             errors.append("Password and Confirm Password do not match")
@@ -121,10 +125,8 @@ class SignupForm(forms.Form):
 
         if email and User.objects.filter(email=email).exists():
             errors.append("This email is already registered.")
-        
-     
+
         if errors:
             raise forms.ValidationError(errors)
 
         return cleaned_data
-

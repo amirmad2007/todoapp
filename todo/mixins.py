@@ -1,6 +1,7 @@
 from django.shortcuts import redirect
 
-class LoginRequiredMixin():
+
+class LoginRequiredMixin:
     """Verify that the current user is authenticated."""
 
     def dispatch(self, request, *args, **kwargs):

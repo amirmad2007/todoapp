@@ -1,0 +1,14 @@
+[flake8]
+max-line-length = 88
+max-doc-length = 88
+exclude = 
+    migrations,
+    __pycache__,
+    manage.py,
+    settings.py,
+    __init__.py,
+     env,
+   */migrations/*,  
+   .git,
+   tests.py
+ignore = F403,F405 , W291

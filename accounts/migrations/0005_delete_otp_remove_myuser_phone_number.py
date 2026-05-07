@@ -6,15 +6,15 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0004_alter_profile_user'),
+        ("accounts", "0004_alter_profile_user"),
     ]
 
     operations = [
         migrations.DeleteModel(
-            name='OTP',
+            name="OTP",
         ),
         migrations.RemoveField(
-            model_name='myuser',
-            name='phone_number',
+            model_name="myuser",
+            name="phone_number",
         ),
     ]
